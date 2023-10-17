@@ -1,0 +1,17 @@
+.formContainer{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ width: 100%;
+ margin-top: 100px;
+}
+.form {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ width: 500px;
+}
+
+.form > input {
+ width: 100%;
+}

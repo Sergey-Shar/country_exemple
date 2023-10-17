@@ -1,15 +1,20 @@
-import { Header, SearchControl, CountryList } from './components'
-import { ThemeProvider, CountryProvider } from './context'
+import { Routes, Route } from 'react-router-dom'
+import { CountryDetail, CountryList, Home, Login, MainLayout, PrivateRoute } from './pages'
+import { NotFound } from './pages/notFound/NotFound'
 
 export const App = () => {
- return (
-		<ThemeProvider>
-			<Header />
-			<CountryProvider>
-				<SearchControl />
-				<CountryList />
-			</CountryProvider>
-		</ThemeProvider>
+	return (
+		<Routes>
+			<Route element={<MainLayout />}>
+				<Route path="/" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route element={<PrivateRoute />} >
+				<Route path="/countries" element={<CountryList />} />
+				<Route path="/countries/:name" element={<CountryDetail />} />
+				</Route>
+			</Route>
+			<Route path="*" element={<NotFound />} />
+		</Routes>
 	)
 }
  

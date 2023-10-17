@@ -1,0 +1,15 @@
+
+subscribe
+store
+action 
+dispatch
+reducer
+
+
+const useAppDispatch = useDispatch<Dispatch<actions>>
+
+type RootState = ReturnType<typeof store.getState>
+
+const useAppSelector:TypedUseSelectorHook<RootState> = useSelector
+
+const useAppStore = useStore<RootState>
