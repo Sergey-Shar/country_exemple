@@ -1,21 +1,25 @@
 
 import { Navigation } from '..'
 import { useThemeContext } from '../../context'
-import { useAuthContext } from '../../context/auth/useAuthContext'
+import { logoutAction } from '../../redux/actions/authActions'
+import { authSelector } from '../../redux/selectors/selectors'
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/useRedux'
 import styles from './styles.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 export const Header = () => {
 
 	const { changeTheme } = useThemeContext()
-	const navigate = useNavigate()
-	const { user, logOut } = useAuthContext()
 	
+	const navigate = useNavigate()
+	const { user } = useAppSelector(authSelector)
+	const dispatch = useAppDispatch()
+
 	const handleLogout = () => {
-		logOut(() => {
+		const action = logoutAction()
+		dispatch(action)
 			navigate('/')
-		})
-	}
+			}
 
  return (
 		<header className={styles.header}>

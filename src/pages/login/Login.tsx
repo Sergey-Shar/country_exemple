@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuthContext } from '../../context/auth/useAuthContext'
 import styles from './styles.module.css'
+import { useAppDispatch } from '../../shared/hooks/useRedux'
+import { loginAction } from '../../redux/actions/authActions'
 
 export const Login = () => {
-	const { logIn } = useAuthContext()
+
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
 	const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
@@ -11,12 +13,10 @@ export const Login = () => {
 		const formData = new FormData(event.currentTarget)
 		const userName = formData.get('userName')?.toString()
 		if (userName) {
-				navigate('/countries', { replace: true })
-			logIn(userName, () => {
-				navigate('/countries', { replace: true })
-			})
+			dispatch(loginAction(userName))
+			navigate('/countries', { replace: true })
 		}
-	}
+	}	
 	return (
 		<div className="container">
 			<div className={styles.formContainer}>

@@ -1,12 +1,10 @@
-import { ChangeEvent } from 'react'
-import { useCountryContext } from '../../context'
+
 import styles from './styles.module.css'
 
 export const SearchControl = () => {
-   const { setSearchValue } = useCountryContext()
    
-   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value)
+   const handleSearch = () => {
+    
    }
    
 	return (

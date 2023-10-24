@@ -1,21 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { PersistGate } from 'redux-persist/es/integration/react'
 import { App } from './App'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { ThemeProvider } from './context'
+import {persistor, store } from './redux/store'
 import './index.css'
-import { CountryProvider, ThemeProvider } from './context'
-import { AuthProvider } from './context/auth/authProvider'
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<ThemeProvider>
-			<CountryProvider>
-				<AuthProvider>
+		<Provider store={store}>
+			<ThemeProvider>
+				<PersistGate persistor={persistor}>
 					<BrowserRouter>
 						<App />
 					</BrowserRouter>
-				</AuthProvider>
-			</CountryProvider>
-		</ThemeProvider>
+				</PersistGate>
+			</ThemeProvider>
+		</Provider>
 	</React.StrictMode>
 )
