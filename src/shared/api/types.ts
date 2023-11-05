@@ -1,3 +1,4 @@
+
 export interface CountryAll {
  "flags": {
 "png": string,
@@ -18,3 +19,16 @@ export interface CountryAll {
 "region": string ,
 "population": number
 }
+
+export interface SuccessResponse<T> {
+    success: true,
+    data: T
+}
+ 
+export interface ErrorResponse {
+ success: false,
+ error?: string,
+}
+
+export type Response<T = never> = ErrorResponse | SuccessResponse<T>
+
