@@ -48,7 +48,7 @@ export const AppPagination = ({
 					<Pagination.Item
 						key={page}
 						active={page === currentPage}
-						onClick={() => setPage(page)}
+						onClick={() => setPage(page )}
 					>
 						{page}
 					</Pagination.Item>

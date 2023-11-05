@@ -1,5 +1,5 @@
 export * from './mainLayout/MainLayout'
 export * from './login/Login'
 export * from './private/PrivateRoute'
-export * from './countryList/CountryList'
-export * from './countryDetail/CountryDetail'
+export * from './posts/PostsList'
+export * from './post/Post'

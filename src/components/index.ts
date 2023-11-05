@@ -1,5 +1,5 @@
 export * from './header'
 export * from './searchControl'
-export * from './countryCard'
+export * from './card'
 export * from './navigation'
 export * from './pagination'

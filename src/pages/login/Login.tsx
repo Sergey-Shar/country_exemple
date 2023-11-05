@@ -12,7 +12,7 @@ export const Login = () => {
 
 	useEffect(() => {
 		if (authorization) {
-			navigate('/countries', { replace: true })
+			navigate('/posts', { replace: true })
 		}
 	}, [authorization, navigate])
 

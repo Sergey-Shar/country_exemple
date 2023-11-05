@@ -1,6 +1,6 @@
 import { lazy , Suspense, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { CountryDetail, CountryList,  Login, MainLayout, PrivateRoute } from './pages'
+import { Post, PostsList,  Login, MainLayout, PrivateRoute } from './pages'
 import { NotFound } from './pages/notFound/NotFound'
 import { checkAuthThunk } from './redux'
 import { useAppDispatch } from './shared/hooks/useRedux'
@@ -23,8 +23,8 @@ export const App = () => {
 				} />
 				<Route path="/login" element={<Login />} />
 				<Route element={<PrivateRoute />}>
-					<Route path="/countries" element={<CountryList />} />
-					<Route path="/countries/:name" element={<CountryDetail />} />
+					<Route path="/posts" element={<PostsList />} />
+					<Route path="/posts/:id" element={<Post />} />
 				</Route>
 			</Route>
 			<Route path="*" element={<NotFound />} />
