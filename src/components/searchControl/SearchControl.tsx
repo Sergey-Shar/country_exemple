@@ -1,11 +1,7 @@
-
 import styles from './styles.module.css'
-
 export const SearchControl = () => {
-   
-   const handleSearch = () => {
-    
-   }
+	
+	const handleSearch = () => {}
    
 	return (
 		<div className="container">
