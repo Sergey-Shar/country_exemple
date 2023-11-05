@@ -1,4 +1,5 @@
 .countryList{
+ margin-top: 50px;
  display: grid;
  gap: 1rem;
  grid-template-columns: repeat(3, 1fr);

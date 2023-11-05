@@ -22,6 +22,7 @@ export const AppCard = ({ id, title, description, image, date }: CardProps) => {
 				<Card.Title>{title}</Card.Title>
 				<Card.Text className={styles.description}>{description}</Card.Text>
 				<Card.Text>{date}</Card.Text>
+				<Card.Text>{id}</Card.Text>
 				<Button
 					onClick={() => {
 						navigate(`/posts/${id}`)

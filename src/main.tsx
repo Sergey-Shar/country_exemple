@@ -10,7 +10,6 @@ import './index.css'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
 		<Provider store={store}>
 			<ThemeProvider>
 					<BrowserRouter>
@@ -18,5 +17,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					</BrowserRouter>
 		</ThemeProvider>
 		</Provider>
-	</React.StrictMode>
 )

@@ -1,58 +1,81 @@
-import { useEffect, useState } from 'react'
-import { AppPagination, AppCard, SearchControl } from '../../components'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { AppCard } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/useRedux'
 import styles from './styles.module.css'
 import { fetchPostsThunk } from '../../redux'
 import { CardPlaceholder } from '../../components/cardPlaceholder/CardPlaceholder'
 
 export const PostsList = () => {
-	const countPosts = useAppSelector((state) => state.posts.postsList.count)
 
 	const dispatch = useAppDispatch()
 	const [offset, setOffset] = useState(0)
-	const [limit, setLimit] = useState(5)
 	const [pageNumber, setPageNumber] = useState(1)
-	const [searchParam, setSearchParam] = useState('')
-const { status, postsList} = useAppSelector((state) => state.posts
-)
-	useEffect(() => {
-	dispatch(fetchPostsThunk({ limit, offset, searchParam }))
-	}, [dispatch, offset, limit, searchParam])
+	const { status, results, hasMore } = useAppSelector((state) => state.posts)
 
 	useEffect(() => {
-		setOffset((pageNumber - 1) * limit)
-	},[pageNumber, limit])
+		dispatch(fetchPostsThunk({offset}))
+	}, [dispatch, offset])
 
+	useEffect(() => {
+		setOffset((pageNumber - 1) * 20)
+	}, [pageNumber])
+
+	const observer = useRef<IntersectionObserver>()
+
+	const lastNodeRef = useCallback(
+		(node: HTMLLIElement) => {
+				if (status === 'loading') {
+					return
+				}
+				if (observer.current) {
+					observer.current.disconnect()
+				}
+				observer.current = new IntersectionObserver((entries) => {
+					if(entries[0].isIntersecting && hasMore) {
+						setPageNumber((prev) => prev + 1)
+					}
+				})
+				if (node) {
+					observer.current.observe(node)
+				}
+		},[status, hasMore]
+	)
 	
- console.log(postsList)
 	return (
 		<>
-			<SearchControl
-				onChange={(value) => setSearchParam(value)}
-				onSelect={(value) => setLimit(Number(value))
-				} />
 			<div className="container">
 				<ol className={styles.countryList}>
 					{status === 'success' &&
-						postsList.results?.map((post) => (
-							<li key={post.id}>
-								<AppCard id={post.id}
-									title={post.title}
-									description={post.text}
-									image={post.image}
-									date={post.date}
-								/>
-							</li>
-						))}
+						results?.map((post, index) => {
+							if (results.length - 5 === index + 1) {
+								return (
+									<li ref={lastNodeRef} key={post.id}>
+										<AppCard
+											id={post.id}
+											title={post.title}
+											description={post.text}
+											image={post.image}
+											date={post.date}
+										/>
+									</li>
+								)
+							} else {
+								return (
+									<li key={post.id}>
+										<AppCard
+											id={post.id}
+											title={post.title}
+											description={post.text}
+											image={post.image}
+											date={post.date}
+										/>
+									</li>
+								)
+							}
+						})}
 					{status === 'loading' &&
-						[...Array(limit)].map((_, index) => <CardPlaceholder key={index} />)}
+						[...Array(20)].map((_, index) => <CardPlaceholder key={index} />)}
 				</ol>
-				<AppPagination
-					count={countPosts}
-					page={limit}
-					currentPage={pageNumber}
-					setPage={setPageNumber}
-				/>
 			</div>
 		</>
 	)
