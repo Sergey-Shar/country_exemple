@@ -1,17 +1,14 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuthContext } from "../../context/auth/useAuthContext";
+import { useAppSelector } from "../../shared/hooks/useRedux";
+
+
 
 export const PrivateRoute = () => {
-   const auth = useAuthContext()
+
+   const authorization =  useAppSelector((state) => state.auth.authorization)
    const location = useLocation()
 
- if (auth.user === null) {
-  return (
-   <Navigate to="/login" state={{ from: location }} replace />
-  )
- }
- return ( 
-  <Outlet />
-   );
+   return authorization ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />
+
 }
  
