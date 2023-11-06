@@ -9,6 +9,7 @@ import { CountryAll } from "../../shared/api/types";
 export const CountryList = () => {
 
 	const dispatch = useAppDispatch()
+	// определяем текущую страницу
 	const [currentPage, setCurrentPage] = useState(1)
 
 	useEffect(() => {
@@ -17,18 +18,24 @@ export const CountryList = () => {
 
 	const { isLoading, countriesAll } = useAppSelector((state) => state.countries)
 
+	// получаем длину массива для пагинации
 	const countCountries = countriesAll?.length
+	// определяем лимит для отображения на странице
 	const pageSize = 6
  
+// функция для обрезки массива 
 	const pagination = (
 		items: CountryAll[],
 		currentPage: number,
 		pageSize: number
 	) => {
+		// определяем индекс первого элемента на странице
 		const startIndex = (currentPage - 1) * pageSize
+		// обрезаем массив по индексу первого элемента и количеству элементов на странице
 		return [...items].splice(startIndex, pageSize)
 	}
 
+// получаем отфильтрованный массив и делаем по нему map
 	const paginatedCountries = pagination(countriesAll, currentPage, pageSize)
 	
 

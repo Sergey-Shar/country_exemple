@@ -13,9 +13,13 @@ export const AppPagination = ({
 	setPage,
 	currentPage
 }: PaginationProps) => {
+
+	// определяем количество страниц
 	const total = Math.ceil(count / page)
+	// получаем массив с цифрами от 1 до total для пагинации
 	const pages = _.range(1, total + 1)
 
+// функция для обрезки массива с цифрами 
 	const cropPages = (pages: number[]) => {
 		if (pages.length <= 5) {
 			return pages
