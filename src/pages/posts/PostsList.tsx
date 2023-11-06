@@ -15,16 +15,17 @@ export const PostsList = () => {
 	const [searchParam, setSearchParam] = useState('')
 const { status, postsList} = useAppSelector((state) => state.posts
 )
+	// следим за изменением и отправляем запрос заново с новыми параметрами
 	useEffect(() => {
 	dispatch(fetchPostsThunk({ limit, offset, searchParam }))
 	}, [dispatch, offset, limit, searchParam])
 
+	// следим за изменением страницы и отправляем запрос с правильным offset
 	useEffect(() => {
+		// теперь нам не нужно обрезать массив, вся работа на сервере
 		setOffset((pageNumber - 1) * limit)
 	},[pageNumber, limit])
 
-	
- console.log(postsList)
 	return (
 		<>
 			<SearchControl
